@@ -25,6 +25,8 @@ namespace Space
                     // Don't list the things an actor is holding. This gets rid of all the spurious 'is empty handed' messages.
                     GlobalRules.DeleteRule("describe", "list-actor-held-items-rule");
 
+                    Scenes.Opening.Scene.Start();
+
                     SwitchPlayerCharacter(RMUD.MudObject.GetObject("Scenes.Opening.Player") as RMUD.Player);
                     RMUD.MudObject.Move(Player, RMUD.MudObject.GetObject("Scenes.Opening.PassengerCabin"));
 

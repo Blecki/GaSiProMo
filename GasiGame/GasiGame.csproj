@@ -78,6 +78,7 @@
     <Compile Include="Scenes\Opening\Girl.cs" />
     <Compile Include="Scenes\Opening\Sal.cs" />
     <Compile Include="Scenes\Opening\Player.cs" />
+    <Compile Include="Scenes\Opening\Scene.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Start.cs" />
   </ItemGroup>
