@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Minimum
+namespace Space
 {
     public class GameInfo : RMUD.SinglePlayer.GameInfo
     {
         public GameInfo()
         {
-            Title = "Minimum";
-            DatabaseNameSpace = "Minimum";
-            Description = "This is a game with the absolute minimum required to run.";
-            Modules = new List<string>(new String[] { "StandardActionsModule.dll", "AdminModule.dll" });
+            Title = "Space!";
+            DatabaseNameSpace = "Space";
+            Description = "An adventure in darkest space.";
+            Modules = new List<string>(new String[] { "StandardActionsModule.dll", "AdminModule.dll", "ConversationModule.dll", "AliasModule.dll" });
         }
     }
 }

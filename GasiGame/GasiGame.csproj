@@ -7,8 +7,8 @@
     <ProjectGuid>{68D0E431-5DCA-4A25-A1B2-2F5B857821B1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SinglePlayerMinimumGame</RootNamespace>
-    <AssemblyName>SinglePlayerMinimumGame</AssemblyName>
+    <RootNamespace>GasiGame</RootNamespace>
+    <AssemblyName>GasiGame</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -34,18 +34,29 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdminModule">
-      <HintPath>..\RMUDModules\AdminModule.dll</HintPath>
+    <Reference Include="AdminModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\AdminModule.dll</HintPath>
     </Reference>
-    <Reference Include="Core">
-      <HintPath>..\RMUDModules\Core.dll</HintPath>
+    <Reference Include="AliasModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\AliasModule.dll</HintPath>
+    </Reference>
+    <Reference Include="ConversationModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\ConversationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.0.5780.38195, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpRuleEngine.1.0.2\lib\SharpRuleEngine.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\SharpRuleEngine.dll</HintPath>
     </Reference>
-    <Reference Include="StandardActionsModule">
-      <HintPath>..\RMUDModules\StandardActionsModule.dll</HintPath>
+    <Reference Include="StandardActionsModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Out\StandardActionsModule.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,13 +75,9 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Start.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Out\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

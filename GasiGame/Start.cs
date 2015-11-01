@@ -1,6 +1,6 @@
 ﻿using RMUD;
 
-namespace Minimum
+namespace Space
 {
 
     public class Start : RMUD.Room
