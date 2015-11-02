@@ -3,10 +3,17 @@ using SharpRuleEngine;
 
 namespace Space
 {
+    public enum AirLevel
+    {
+        Vacuum,
+        Atmosphere
+    }
+
     public class Room : RMUD.Room
     {
         public int TimesViewed = 0;
         public string BriefDescription;
+        public AirLevel AirLevel = AirLevel.Atmosphere;
 
         public override void Initialize()
         {
