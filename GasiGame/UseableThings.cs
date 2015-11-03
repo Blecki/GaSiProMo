@@ -20,11 +20,15 @@ namespace Space
                             MustMatch("@not here",
                             Object("SUBJECT", InScope, (actor, thing) =>
                             {
+                                // Prefer objects we can actually use.
                                 var canUse = Core.GlobalRules.ConsiderCheckRuleSilently("can use?", actor, thing);
                                 if (canUse == SharpRuleEngine.CheckResult.Allow)
                                     return MatchPreference.Likely;
                                 return MatchPreference.Unlikely;
                             })))),
+                    // We would also like to match when the player types the name of a thing that is
+                    // useable. Here we just check the 'useable?' property, so that things where 
+                    // 'can use?' fails will still be matched.
                     Generic((m, c) =>
                     {
                         return new List<RMUD.PossibleMatch>(
@@ -32,7 +36,7 @@ namespace Space
                                 .Match(m, c)
                                 .Where(
                                 _ => (_["SUBJECT"] as MudObject).GetBooleanProperty("useable?")));
-                    }, "A usable item")))
+                    }, "[A USEABLE ITEM]")))
                 .ID("USE")
                 .Manual("Use a useable thing. You can also just enter the name of the thing.")
                 .Check("can use?", "ACTOR", "SUBJECT")

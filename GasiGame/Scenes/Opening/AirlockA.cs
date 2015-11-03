@@ -17,7 +17,7 @@ namespace Space.Scenes.Opening
             OpenLink(Direction.WEST, "Scenes.Opening.PassengerCabin", westHatch);
             OpenLink(Direction.EAST, "Scenes.Opening.ShaftA", eastHatch);
 
-            var panel = new MudObject("cycle panel", "It is a small panel that cycles the airlock.");
+            var panel = new MudObject("cycle panel", "It is a small panel that cycles the airlock. All I have to do is USE it, and it will equalize the pressure in the airlock.");
             Move(panel, this);
             panel.CheckCanTake().Do((a, t) =>
             {
