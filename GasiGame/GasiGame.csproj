@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlPanel.cs" />
+    <Compile Include="UseableThings.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="Hatch.cs" />

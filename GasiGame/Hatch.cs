@@ -1,4 +1,5 @@
 ﻿using RMUD;
+using System;
 
 namespace Space
 {
@@ -17,6 +18,15 @@ namespace Space
 
             SetProperty("open?", false);
             SetProperty("openable?", true);
+
+            Value<MudObject, Hatch, String, String>("printed name")
+               .Do((viewer, hatch, article) =>
+               {
+                   hatch.ControlPanel.UpdateHatchIndicatorState();
+                   var open = GetBooleanProperty("open?");
+                   if (open) return String.Format("{0} open hatch", article);
+                   else return String.Format("{0} closed hatch ({1})", article, hatch.ControlPanel.Indicator);
+               });
 
             Check<MudObject, Hatch>("can open?")
                 .Last
@@ -47,7 +57,7 @@ namespace Space
             {
                 SetProperty("open?", true);
                 var otherSide = Portal.FindOppositeSide(this);
-                otherSide.SetProperty("open?", true);
+                if (otherSide != null) otherSide.SetProperty("open?", true);
                 return SharpRuleEngine.PerformResult.Continue;
             });
 
@@ -55,7 +65,7 @@ namespace Space
             {
                 SetProperty("open?", false);
                 var otherSide = Portal.FindOppositeSide(this);
-                otherSide.SetProperty("open?", false);
+                if (otherSide != null) otherSide.SetProperty("open?", false);
                 return SharpRuleEngine.PerformResult.Continue;
             });
 
@@ -68,7 +78,7 @@ namespace Space
                     var thisSide = hatch.Location as Room;
                     var otherSide = Portal.FindOppositeSide(this).Location as Room;
 
-                    if (thisSide.AirLevel != otherSide.AirLevel)
+                    if (otherSide == null || thisSide.AirLevel != otherSide.AirLevel)
                     {
                         SendMessage(player, "It won't open.");
                         return SharpRuleEngine.CheckResult.Disallow;

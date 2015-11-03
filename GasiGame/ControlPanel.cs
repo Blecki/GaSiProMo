@@ -22,7 +22,8 @@ namespace Space
             if (Location is Hatch)
             {
                 var thisSide = FindLocale(this) as Room;
-                var otherSide = Portal.FindOppositeSide(Location).Location as Room;
+                var otherHatch = Portal.FindOppositeSide(Location);
+                Room otherSide = otherHatch == null ? null : otherHatch.Location as Room;
                 if (thisSide != null && otherSide != null && thisSide.AirLevel == otherSide.AirLevel)
                     Indicator = IndicatorState.green;
                 else
