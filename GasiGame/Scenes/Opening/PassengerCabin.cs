@@ -16,6 +16,7 @@ namespace Space.Scenes.Opening
             MudObject.Move(GetObject("Scenes.Opening.Sal"), this);
             MudObject.Move(GetObject("Scenes.Opening.Girl"), this);
             MudObject.Move(GetObject("Scenes.Opening.Daniel"), this);
+            MudObject.Move(GetObject("Scenes.Opening.Bird"), this);
 
             OpenLink(Direction.EAST, "Scenes.Opening.AirlockA", GetObject("Hatch@OpeningPassengerCabin-A"));
         }

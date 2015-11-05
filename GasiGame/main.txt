@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+	<style>
+		body
+		{
+			margin-right: 150px;
+			margin-left: 150px;
+			background-color: #000000;
+			font-size: 150%;
+			text-align: justify;
+			text-justify: inter-word;
+			word-wrap: break-word;
+		}
+
+		.output
+		{
+			color: #FFFFFF;
+		}
+
+		.echo
+		{
+			margin-top: 0.5cm;
+			color: #FF0000;
+		}
+
+		input
+		{
+			width: 100%;
+			background-color: #000000;
+			color: orange;
+			border-style: none;
+			font-size: 100%;
+		}
+	</style>
+
+	<script>
+		function output(s)
+		{
+			outputClass(s, "output");
+		}
+
+		function outputClass(s, className)
+		{
+			var newDiv = document.createElement('div');
+			newDiv.className = className;
+			newDiv.innerHTML = s;
+			document.getElementById('output').appendChild(newDiv);
+			window.scrollTo(0,document.body.scrollHeight + 1000);
+		}
+
+		function input(event)
+		{
+			if (event.keyCode == 13)
+			{
+				var command = document.getElementById('input').value;
+				outputClass(command, "echo");
+				window.external.HandleCommand(command);
+				document.getElementById('input').value = "";
+			}
+		} 
+
+		function load()
+		{
+			document.getElementById('input').focus();
+		}
+	
+	</script>
+
+</head>
+
+<body onload='load()'>
+	<div id='output'></div>
+	<span style="display:block; overflow:hidden; margin-top: 1cm;">
+		<input type='text' id='input' onkeypress="input(event);" >
+	</span>
+</body>
+</html>

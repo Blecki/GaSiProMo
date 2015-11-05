@@ -15,7 +15,12 @@ namespace Space.Scenes.Opening
             Game.SwitchPlayerCharacter(RMUD.MudObject.GetObject("Scenes.Opening.Player") as RMUD.Player);
             RMUD.MudObject.Move(Game.Player, RMUD.MudObject.GetObject("Scenes.Opening.PassengerCabin"));
 
-            RMUD.MudObject.SendMessage(Game.Player, "  I'm in the passenger cabin of the Courageous Lion, a tiny private space liner with a grandiose name. We are three jumps from Sol. Not a bad distance, for my first interstellar trip. I am strapped tight into the flight couch as Sal drones on about safety procedures and protocols. Nevermind that we've done three jumps already, and only have one left. We will jump again in a few minutes, and all the passengers and crew need to be locked down when that happens. Everything on the ship will turn off, momentarily, including us.\n\n  There are three passengers beside myself, and Sal, in the cabin. My son, Daniel. The daughter of the one of the crewpersons. She is shy and won't talk to us. And an enourmous, gaudy, purple and yellow bird.");
+            RMUD.MudObject.SendMessage(Game.Player, 
+@"I'm in the passenger cabin of the Courageous Lion, a tiny private space liner with a grandiose name. We are three jumps from Sol. Not a bad distance, for my first interstellar trip. I am strapped tight into the flight couch as Sal drones on about safety procedures and protocols. Nevermind that we've done three jumps already, and only have one left. We will jump again in a few minutes, and all the passengers and crew need to be locked down when that happens. Everything on the ship will turn off, momentarily, including us.
+
+There are three passengers beside myself, and Sal, in the cabin. My son, Daniel; A young girl who I think may the daughter of one of the crewpersons; and an enourmous, gaudy, purple and yellow bird.
+
+[You might try the command 'look' to look around at your surroundings, or 'examine bird' to take a closer look at something specific.]");
 
             RMUD.Core.GlobalRules.Perform<RMUD.PossibleMatch, RMUD.Actor>("before acting")
                 .ID("Opening-Scene-Rule")

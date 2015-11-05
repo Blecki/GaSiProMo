@@ -33,9 +33,18 @@ namespace Space
                 });
         }
 
+        private static bool FirstConversation = true;
+
         public static void StartConversation(RMUD.Actor Actor, RMUD.MudObject NPC)
         {
+            if (FirstConversation)
+            {
+                FirstConversation = false;
+                RMUD.MudObject.SendMessage(Actor, "\n[You've entered into a conversation. During a conversation, you will be prompted with a list of possible topics. You can see the list again by entering the command 'topics'. You can enter into a conversation with any character at any time using 'greet &lt;character&gt;']");
+            }
+
             Actor.SetProperty("interlocutor", NPC);
+            RMUD.MudObject.SendMessage(Actor, "\n");
             RMUD.Core.EnqueuActorCommand(Actor, "topics");
         }
 
