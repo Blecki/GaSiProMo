@@ -22,6 +22,8 @@ There are three passengers beside myself, and Sal, in the cabin. My son, Daniel;
 
 [You might try the command 'look' to look around at your surroundings, or 'examine bird' to take a closer look at something specific.]");
 
+            RMUD.Core.SendPendingMessages();
+
             RMUD.Core.GlobalRules.Perform<RMUD.PossibleMatch, RMUD.Actor>("before acting")
                 .ID("Opening-Scene-Rule")
                 .Do((match, actor) =>

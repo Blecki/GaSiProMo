@@ -82,6 +82,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scenes\Opening\Bird.cs" />
+    <Compile Include="Scenes\Opening\Shaft.cs" />
     <Compile Include="UseableThings.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameInfo.cs" />

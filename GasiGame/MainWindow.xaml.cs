@@ -41,13 +41,13 @@ namespace WpfConsole
 
             Clear();
 
-            Driver.BlockOnInput = false;
-
             RMUD.Core.OnShutDown += () =>
                 {
                     if (ShuttingDown) return;
                     Dispatcher.Invoke(new Action(() => Close()));
                 };
+
+            RMUD.Core.DynamicCriticalLog = Output;
         }
 
         public void Output(String s)

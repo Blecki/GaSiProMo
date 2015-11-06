@@ -18,7 +18,7 @@ namespace Space.Scenes.Opening
             MudObject.Move(GetObject("Scenes.Opening.Daniel"), this);
             MudObject.Move(GetObject("Scenes.Opening.Bird"), this);
 
-            OpenLink(Direction.EAST, "Scenes.Opening.AirlockA", GetObject("Hatch@OpeningPassengerCabin-A"));
+            OpenLink(Direction.AFT, "Scenes.Opening.AirlockA", GetObject("Hatch@OpeningPassengerCabin-A"));
         }
     }   
 }
