@@ -1,18 +1,30 @@
 ﻿using RMUD;
 using StandardActionsModule;
+using SharpRuleEngine;
 
 namespace Space.Scenes.Opening
 {
 
     public class AirlockA : Room
     {
+        private void AutoClose(MudObject Player, Hatch Hatch)
+        {
+            if (Hatch.GetBooleanProperty("open?"))
+            {
+                Hatch.SetProperty("open?", false);
+                var otherSide = Portal.FindOppositeSide(Hatch);
+                if (otherSide != null) otherSide.SetProperty("open?", false);
+                MudObject.SendMessage(Player, "^<the0> closes.", Hatch);
+            }
+        }
+
         public override void Initialize()
         {
             Short = "Airlock";
             BriefDescription = "I'm in the airlock between the passenger cabin and the main shaft.";
 
-            var foreHatch = GetObject("Hatch@OpeningAirlockA-A");
-            var aftHatch = GetObject("Hatch@OpeningAirlockA-B");
+            var foreHatch = GetObject("Hatch@OpeningAirlockA-A") as Hatch;
+            var aftHatch = GetObject("Hatch@OpeningAirlockA-B") as Hatch;
 
             OpenLink(Direction.FORE, "Scenes.Opening.PassengerCabin", foreHatch);
             OpenLink(Direction.AFT, "Scenes.Opening.Shaft", aftHatch);
@@ -25,6 +37,38 @@ namespace Space.Scenes.Opening
                 return SharpRuleEngine.CheckResult.Disallow;
             });
             panel.MakeUseable();
+
+            panel.PerformUsed().Do((actor, thisPanel) =>
+            {
+                AutoClose(actor, foreHatch);
+                AutoClose(actor, aftHatch);
+
+                var foreRoom = Portal.FindOppositeSide(foreHatch).Location as Room;
+                var aftRoom = Portal.FindOppositeSide(aftHatch).Location as Room;
+
+                var oldState = this.AirLevel;
+                if (this.AirLevel != foreRoom.AirLevel)
+                    this.AirLevel = foreRoom.AirLevel;
+                else
+                    this.AirLevel = aftRoom.AirLevel;
+
+                if (this.AirLevel == oldState)
+                {
+                    if (this.AirLevel == AirLevel.Atmosphere)
+                        SendMessage(actor, "The airlock remains pressurized.");
+                    else
+                        SendMessage(actor, "The airlock remains unpressurized.");
+                }
+                else
+                {
+                    if (this.AirLevel == AirLevel.Atmosphere)
+                        SendMessage(actor, "The airlock is now pressurized.");
+                    else
+                        SendMessage(actor, "The airlock is not unpressurized.");
+                }
+
+                return SharpRuleEngine.PerformResult.Continue;
+            });
    
 
             RMUD.Core.GlobalRules.Perform<RMUD.PossibleMatch, RMUD.Actor>("before acting")

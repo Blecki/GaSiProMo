@@ -7,6 +7,36 @@ namespace Space
     {
         ControlPanel ControlPanel;
 
+        public class DynamicLinkDirectionNoun : RMUD.Noun
+        {
+            public MudObject LinkObject;
+
+            public DynamicLinkDirectionNoun(MudObject LinkObject)
+            {
+                this.LinkObject = LinkObject;
+            }
+
+            public bool CouldMatch(string Word)
+            {
+                return Word.ToUpper() == GetLinkDirection().ToString().ToUpper();
+            }
+
+            public Direction GetLinkDirection()
+            {
+                return LinkObject.GetPropertyOrDefault<Direction>("link direction", Direction.NORTH);
+            }
+
+            public bool Match(string Word, Actor Actor)
+            {
+                return CouldMatch(Word);
+            }
+
+            public string ToInspectString()
+            {
+                return GetLinkDirection().ToString().ToUpper();
+            }
+        }
+
         public Hatch() : base(RelativeLocations.On, RelativeLocations.On)
         {
             Short = "hatch";
@@ -15,6 +45,7 @@ namespace Space
             this.Nouns.Add("HATCH");
             this.Nouns.Add("CLOSED", h => !GetBooleanProperty("open?"));
             this.Nouns.Add("OPEN", h => GetBooleanProperty("open?"));
+            this.Nouns.Add(new DynamicLinkDirectionNoun(this));
 
             SetProperty("open?", false);
             SetProperty("openable?", true);
@@ -23,9 +54,8 @@ namespace Space
                .Do((viewer, hatch, article) =>
                {
                    hatch.ControlPanel.UpdateHatchIndicatorState();
-                   var open = GetBooleanProperty("open?");
-                   if (open) return String.Format("{0} open hatch", article);
-                   else return String.Format("{0} closed hatch ({1})", article, hatch.ControlPanel.Indicator);
+                   var direction = GetPropertyOrDefault("link direction", Direction.NOWHERE);
+                   return String.Format("{0} {1} hatch ({2})", article, direction.ToString().ToLower(), hatch.ControlPanel.Indicator);
                });
 
             Check<MudObject, Hatch>("can open?")
